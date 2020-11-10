@@ -16,5 +16,5 @@ if (c>b && c>a)
 {
     cout<<c;
 }
-return 0
+return 0;
 }
