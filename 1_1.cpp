@@ -14,10 +14,8 @@ int main()
     }
     if (c > a && c > b)
     {
-        cout << c;cls
-        
+        cout << c;
+
     }
     return 0;
 }
-
-Привет
