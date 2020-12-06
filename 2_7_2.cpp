@@ -8,10 +8,9 @@ int main()
     {
         for (int j=0; j<n; j++)
         {
-            cout << "*";
+            cout << "[*]";
             cout << " ";
         }
-        cout << "\n";
+        cout << "\n"<<"\n";
     }
     return 0;
-}
