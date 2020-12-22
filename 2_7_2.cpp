@@ -11,9 +11,13 @@ int main()
     {
         for (int j=0; j<n; j++)
         {
+<<<<<<< HEAD
+            cout << "[*]";
+            cout << " ";
+=======
             cout << "* ";
+>>>>>>> f319efcb9e469852576e05f219f3c928d9eca4bd
         }
-        cout << "\n";
+        cout << "\n"<<"\n";
     }
     return 0;
-}
