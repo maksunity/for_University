@@ -1,0 +1,74 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Verdana;
+    font-size: 14px;
+}
+
+.marks li a{
+    padding: 0;
+    margin: 0;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    opacity: 1;
+    font-size: 20px;
+    font-family: Verdana;
+}
+
+.marks{
+    display: flex;
+}
+
+.marks li{
+    margin-right: 25px;
+}
+
+.col{
+    color: rgb(61, 156, 180);
+    text-shadow: 3px 3px 3px #000;
+}
+
+.col2{
+    color: rgb(70, 206, 230);
+    text-shadow: 2px 2px 2px #000;
+}
+ul, li{
+    display: block;
+}
+
+body{
+    background: url('../img/book.jpg') no-repeat center top / cover;
+}
+
+body{
+    background: url('../img/book.jpg') no-repeat center top / cover;
+}
+
+.text{
+    color: pink;
+    font-size: 25px;
+}
+
+.back{
+    padding: 0;
+    margin: 0;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    opacity: 1;
+    font-size: 20px;
+    font-family: Verdana;
+}
+
+.txt{
+    color: salmon;
+    text-shadow: 1px 1px 1px #000;
+    font-family: verdana;
+    font-size: 20px;
+}
+ .button{
+     margin-left: 1200px;
+     margin-top: 100px;
+     
+ }
