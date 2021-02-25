@@ -1,4 +1,4 @@
-#include <iostream> //доделать,.,..
+#include <iostream> //доделать
 #include <fstream>
 #include <cstdlib>
 #include <string>
