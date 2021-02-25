@@ -1,29 +1,40 @@
-#include <iostream>
+#include <iostream> //DONE!
 using namespace std;
 
 int main(){
-string* a, *p;
 int n;
 cout << "Введите кол-во cтрок: ";
 cin >> n;
-a = new string[n]; 
-for (int i = 1; i <= n; i++)
+int *a = new int [n];
+for (int i = 0; i < n; i++)
 {
-    a[i]=(char) ('a' + rand() %25);
+    a[i] = rand() %10;
 }
+
+cout << "Массив до удаления строки: ";
+cout << endl;
+
+for (int i = 0; i < n; i++)
+{
+    cout << a[i] << endl;
+}
+
+cout << endl;
 
 cout << "Введите строку для удаления: ";
 int s;
 cin >> s;
-
-for (int i = s; i <=n; i++)
+ int buf = 0;
+for (int i = s-1; i <=n; i++)
 {
-    a[i]=a[i+1];
+    buf = a[i];
+    a[i]= a[i+1];
+    a[i+1] = buf;
 }
  
-for (int i = 1; i <=n; i++)
+for (int i =0; i <n-1; i++)
 {
-    cout << a[i];
+    cout << a[i] << endl;;
 }
 delete[] a;
 
