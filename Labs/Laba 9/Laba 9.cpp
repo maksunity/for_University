@@ -4,38 +4,63 @@
 #include <string>
 #include <sstream>
 using namespace std;
-int main(){
-	string z, firstword, word;
-	inf.open("f1.txt");
-
-	for (getline(z,word); !in.eof(); getline(z. word))
+int count (string str)
+{
+	int k=0;
+	for (auto c :str)
 	{
-		
-	}
-	
-	{
-		stringstream ss(z);
-		bool flag = false;
-		ss >> firstword;
-		while (ss>>word)
-		{
-			if (word == firstword)
+		switch (c)
 			{
-				ofstream out("f2.txt");
-				cin.getline(in, ss);
+				case 'q':
+				case 'Q':
+				case 'w':
+				case 'W':
+				case 'r':
+				case 'R':
+				case 't':
+				case 'T':
+				case 'p':
+				case 'P':
+				case 's':
+				case 'S':
+				case 'd':
+				case 'D':
+				case 'f':
+				case 'F':
+				case 'g':
+				case 'G':
+				case 'h':
+				case 'H':
+				case 'j':
+				case 'J':
+				case 'k':
+				case 'K':
+				case 'l':
+				case 'L':
+				case 'z':
+				case 'Z':
+				case 'x':
+				case 'X':
+				case 'c':
+				case 'C':
+				case 'v':
+				case 'V':
+				case 'b':
+				case 'B':
+				case 'n':
+				case 'N':
+				case 'm':
+				case 'M':
+				k++;
 			}
-
 		}
-		
-	}
-
-		
-		
-		
-		
-		/**ifstream inf;
+		return k;
+}
+int main(){	
+		ifstream inf;
 		inf.open("f1.txt");
 		string inp; 
+		string str;
 		string word;
 		int check;
 		ofstream outf;
@@ -51,7 +76,7 @@ int main(){
 			while(ss >> word)
 			{
 				cout << "word: " << word << endl;
-				if (word == z)
+				if (word == "hello")
 				{
 					check++;
 				}
@@ -67,6 +92,18 @@ int main(){
 			}
 			}
 			outf.close();
+
+	 	ifstream f2;
+		 int n;
+		 cout << "Kolvo strok: " << endl;
+		 cin >> n;
+		 for(int i=0; i<n; i++)
+		 {
+			 getline(f2, str);
+		 }
+			
+		 cout << "Кол-во согласных букв в последней строке: " << count(str);
+
 		return 0;
 		}	
-**/
+

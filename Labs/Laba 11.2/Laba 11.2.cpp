@@ -1,4 +1,4 @@
-#include <iostream> 
+#include <iostream>  // DONE!
 using namespace std;
 
 struct List{ 
@@ -34,7 +34,7 @@ void print(List* first)
 {
     if( first == NULL)
     {
-        cout << "Список пуст";
+        cout << "Empty lIst";
     }
     List* p= first;
     while (p!=NULL)
@@ -48,25 +48,32 @@ void print(List* first)
 
 void del(List* first) //Доделать эту функцию
 {
-    cout << "Происходит удаление всех элементов с четным значением" << endl;
+    cout << "Delete all ODD" << endl;
     if (first == NULL)
     {
-        cout << "Список пуст" << endl;
+        cout << "Empty lIst" << endl;
     }
     List* p = first;
     List* q = NULL;
-    while (p != NULL)
-    {
-        if ( p->next-> data %2 == 0)
+        if ( p-> data %2 == 0)
         {                
-            q->data=p->data;
-            p->prev = q;
-            
+            q=p;
         }
-        else{
-            p= p->next;
+        p=p->next;
+        while (p->next !=NULL)
+        {
+            if (p->next->data %2 == 00)
+            {
+                q=p;
+            }
+            p=p->next;
         }
-    }
+        if (q != NULL)
+        {
+            p=q;
+            p->next=p->next->next;
+            delete q;
+        }
 }
 
 int main()
