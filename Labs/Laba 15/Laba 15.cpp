@@ -41,8 +41,12 @@ void Hoar(Bus* a, int left, int right)
 
 }
 
+
+
+
 int main()
 {
+    //Сортировка Хоара ///////
     cout << "Enter num of bus: " << endl;
     cin >> n;
     Bus* p = new Bus[n];
@@ -61,5 +65,6 @@ int main()
         cout << "Bus " << i << "Number"<< " " << p[i].m << " ";
         cout << "Lenght route" << " " << p[i].d << endl;
     }
+    return 0;
 }
 
