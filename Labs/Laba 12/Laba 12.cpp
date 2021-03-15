@@ -1,137 +1,176 @@
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <locale.h>
+#include <fstream>
+#include <stdlib.h>
+#include <sstream>
 using namespace std;
-
-string *name = new string[15];
-
-struct Database
-{
-    string name;
-    string birthday;
-    string number;
+ int n;
+struct ID{
+	string data;
+	string fnp;
+	string number;
 };
-
-int main()
-{
-
-    int a = 15;
-    string name[a] = {
-        "Зимин Пантелей Егорович",
-        "Калинин Гарри Альбертович",
-        "Егоров Альфред Семенович",
-        "Костин Платон Вячеславович",
-        "Носков Святослав Владимирович",
-        "Емельянов Савелий Феликсович",
-        "Корнилов Орест Созонович",
-        "Фадеев Май Геннадиевич",
-        "Щербаков Тимофей Кириллович",
-        "Блинов Людвиг Витальевич",
-        "Андреев Гурий Владиславович",
-        "Самойлов Аристарх Авксентьевич",
-        "Наумов Гордей Романович",
-        "Лаврентьев Вальтер Германнович",
-        "Степанов Самуил Мэлорович",
-    };
-
-    string birthday[a] = {
-        "11.03.1970",
-        "21.06.1970",
-        "06.04.1973",
-        "20.10.1973",
-        "23.09.1974",
-        "03.12.1974",
-        "10.10.1977",
-        "03.12.1977",
-        "17.07.1980",
-        "04.03.1981",
-        "11.01.1983",
-        "25.04.1984",
-        "03.05.1986",
-        "16.11.1986",
-        "10.02.1988",
-    };
-
-    string number[a] = {
-        "1",
-        "12",
-        "123",
-        "1234",
-        "12345",
-        "123456",
-        "1234567",
-        "12345678",
-        "123456789",
-        "2",
-        "23",
-        "234",
-        "2345",
-        "23456",
-        "234567",
-
-    };
-
-    cout << "Line Search : " << endl;
-    // Линейный поиск по дате рождения!
-    string key;
-    cout << "Enter key for search: " << endl;
-    cin >> key;
-    for (int a = 0; a < 15; a++)
-    {
-        if (birthday[a] == key)
-        {
-            cout << "Family: " << name[a] << endl;
-            cout << "Date: " << birthday[a] << endl;
-            cout << "Number: " << number[a] << endl;
+	int size=100;
+	ID* arr = new ID[size];
+void create(){
+	string a;
+	ifstream str("struct.txt");
+    for(int i=0; i<size; i++){
+        if(str.is_open()){
+            if(getline(str, a)){
+                arr[i].data = a;
+            }
+            if(getline(str, a)){
+                arr[i].fnp = a;
+            }
+            if(getline(str, a)){
+                arr[i].number = a;
+            }
+        }    
+    }
+    str.close();
+}
+void linear_search(){
+	string a;
+	int i;
+	int n=-1;
+	cout<<"Enter key:";
+	getline(cin,a);
+	getline(cin,a);
+	for(int i=0;i<size; i++){
+		if(arr[i].data ==a){
+			n=i;
+		}
+	}
+	if(n!=-1){
+		cout<<"Element poition is:"<<n+1<<endl;
+		cout<<"This element:"<<endl;
+		cout << "|" << arr[i].data <<"|"<<endl;
+        cout << "|"<< arr[i].fnp<< "|"<<endl;
+	    cout <<"|"<< arr[i].number << "|"<<endl;
+	}else{
+		cout<<"Error, no elements with this key"<<endl;
+	}
+}
+void substr_search(){
+    string substr;
+    cout << "Enter the substring: ";
+    getline(cin,substr);
+    getline(cin,substr);
+    string str;
+    bool x=true, n=true;
+    for(int i=0; i<size; i++){
+        str=arr[i].data;
+        for(int j=0; j<str.size(); j++){
+            x=true;
+            for(int k=0; k<substr.size();k++){
+                if(substr[k]!=str[j+k]){
+                    x=false;
+                }
+            }
+            if(x==true){
+                cout << "Element number: " << i+1 << endl;
+                cout << "This element: " << endl;
+                cout << "    " << arr[i].data<< endl;
+                cout << "    " << arr[i].fnp<< endl;
+                cout << "    " << arr[i].number<< endl;
+                n=false;
+            }
         }
     }
-    /////////////////////////////////////////////////////////////////
-
-    //////// Интерполяционный поиск ///////////
-    /*cout << "Interpolution Search: " << endl;
-    cout << "Enter new key: " << endl;
-    int key_new;
-    cin >> key_new;
-    int mid;
-    int left = 0;
-    int right = a - 1;
-
-    while (left <= key_new && right >= key_new)
-    {
-        mid = left + ((key_new - left) * (right - left)) / (right - left);
-        if (mid < key_new)
-            left = mid + 1;
-        else 
-        if (mid > key_new)
-            right = mid - 1;
-        else
-            left = mid;
+    if(n=false){
+        cout << "There is no element with this key" << endl;
     }
-    if (left == key_new)
-    return left;
-    for (int a=left ; a<=left; a++)
-    {
-        cout << "Family: " << name[a] << endl;
-        cout << "Date: " << birthday[a] << endl;
-        cout << "Number: " << number[a] << endl;
+}
+
+int interpolsearch(ID arr[], long long int key_number) {
+	int mid, left = 0, right = n - 1;
+	while (arr[left].number <= key_number && arr[right].number >= key_number) {
+		mid = left + ((key_number - arr[left].number) * (right - left)) / (arr[right].number - arr[left].number);
+		if (arr[mid].number < key_number)
+			left = mid + 1;
+		else
+			return mid;
+	}
+	if (arr[left].number == key_number)
+		return left;
+	else
+		return -1;
+}
+
+
+void print(){
+    cout << "Your struct: " << endl;
+    for(int i=0; i<size;i++){
+        cout << "Your " << i+1 << " person: " << endl;
+        cout << "|" << arr[i].data<<"|"<<endl;
+        cout << "|"<< arr[i].fnp<< "|"<<endl;
+        cout <<"|"<< arr[i].number << "|"<<endl;
     }
-    */
-
-    ////Поиск подстроки в строке/////
-
-    cout << "Search string in upstring: " << endl;
-    string key_string;
-    cin >> key_string;
-    for (int a = 0; a<= 15 ; a++)
-    {
-        if ((birthday[a].find(key_string)) !=0)
-        {
-            cout << "Family: " << name[a] << endl;
-            cout << "Date: " << birthday[a] << endl;
-            cout << "Number: " << number[a] << endl;
-        
+}
+void save(){
+	string a;
+	ofstream str;
+    ifstream gg("struct.txt");
+	str.open("save_struct.txt");
+	for(int i=0;i<size;i++){
+        if(getline(gg,a)){
+		str<<"|"<<arr[i].data<<"|"<<arr[i].fnp<<"|"<<arr[i].number<<"|"<<endl;
         }
-    }
-
-
-return 0;
+	}
+	str.close();
+}
+int main(){
+	cout<<"1 - Show data."<<endl;
+	cout<<"2 - Choice search."<<endl;
+	cout<<"3 - Clear console."<<endl;
+	cout<<"4 - Save in .txt format."<<endl;
+	cout<<"5 - Exit."<<endl;
+	int choice;
+	while(choice!=5){
+		cout<<"Choice is:";
+		cin>>choice;
+		switch(choice){
+			case 1:
+				create();	
+				print();
+				break;
+			case 2:
+				cout<<"Choice search method:"<<endl;
+				cout<<"1 - Lenear search"<<endl;
+				cout<<"2 - Method of straight search of substring in a string"<<endl;
+				cout<<"3 - Interpolation search"<<endl;
+				int choice2;
+				cout<<"Choice is:"<<endl;
+				cin>>choice2;
+				switch(choice2){
+					case 1://linear search
+						linear_search();
+						break;
+					case 2://Str in str
+                        substr_search();
+						break;
+					case 3://Interpolation search
+						break;
+					default:
+						cout<<"Illegial choice."<<endl;
+				}
+				break;
+			case 3:
+				system("cls");
+				break;
+			case 4:
+				save();
+				break;
+			case 5:
+                cout<<"*Have a good day*"<<endl;
+                break;
+            default:
+				cout<<"Illegial choice."<<endl;
+		}
+	}
+	system("pause");
+	return 0;
 }
