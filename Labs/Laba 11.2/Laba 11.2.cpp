@@ -46,7 +46,7 @@ void print(List* first)
 }
 
 
-void del(List* first) //Доделать эту функцию
+void del(List* first) 
 {
     cout << "Delete all ODD" << endl;
     if (first == NULL)

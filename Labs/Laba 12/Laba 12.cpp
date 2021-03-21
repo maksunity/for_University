@@ -85,20 +85,28 @@ void substr_search(){
     }
 }
 
-int interpolsearch(ID arr[], long long int key_number) {
-	int mid, left = 0, right = n - 1;
-	while (arr[left].number <= key_number && arr[right].number >= key_number) {
-		mid = left + ((key_number - arr[left].number) * (right - left)) / (arr[right].number - arr[left].number);
-		if (arr[mid].number < key_number)
-			left = mid + 1;
-		else
-			return mid;
+/*void interpolsearch(ID arr[], int key) {
+	string num;
+	int int_num, buf, change, key, mid;
+	for (int i = 0; i < size; i++)
+	{
+		int_num = stoi (arr[i].data);
+		buf = stoi(arr[i+1].data);
+		if (buf < int_num)
+		{
+			change = int_num;
+			int_num = buf;
+			buf = change;
+		}
 	}
-	if (arr[left].number == key_number)
-		return left;
-	else
-		return -1;
+	cout << "Enter key: " << endl;
+	cin >> key;
+	for (int i = 1; i <= size; i++)
+	{
+		mid = 
+	}
 }
+	*/
 
 
 void print(){
@@ -152,7 +160,7 @@ int main(){
 					case 2://Str in str
                         substr_search();
 						break;
-					case 3://Interpolation search
+					case 3://interpolsearch();
 						break;
 					default:
 						cout<<"Illegial choice."<<endl;
