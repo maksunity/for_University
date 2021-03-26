@@ -78,7 +78,7 @@ void del(List* first)
 
 int main()
 {
-    setlocale(LC_ALL, "Russian");
+    cout << "List bedore del: " << endl;
     List* list= make_int();
     print (list);
     cout << endl;
@@ -86,7 +86,3 @@ int main()
     print (list);
     return 0;
 }
-
-
-
-

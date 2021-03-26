@@ -1,4 +1,4 @@
-#include <iostream> // DONE!!
+#include <iostream>
 using namespace std;
 int key;
 struct List{
@@ -14,16 +14,17 @@ List* make(int n, List*& first, List*& last){
     }
 
     List* p = new List;
+    cout << "Add element: ";
     int a;
     cin >> a;
     p->data = a;
     p->next = NULL;
-    first =p;
+    first = p;
     last = p;
-    for (int i=2; i<=n; i++)
+    for (int i = 1; i < n; i++)
     {
         List* h = new List;
-        cout << "add element: ";
+        cout << "Add element: ";
         cin >> a;
         h->data = a;
         h->next = p;

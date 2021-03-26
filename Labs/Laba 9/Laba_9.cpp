@@ -63,5 +63,6 @@ int main(){
     }
         cout<<cs-1;
         sec.close();
+		cout << "Programm done!"; 
 		return 0;
 		}	

@@ -1,4 +1,4 @@
-#include <iostream> //DONE!
+#include <iostream> 
 using namespace std;
 
 struct List{ 
@@ -30,7 +30,7 @@ void print(List* first)
 {
     if( first == NULL)
     {
-        cout << "Список пуст";
+        cout << "List is empty";
     }
     List* p= first;
     while (p!=NULL)
@@ -46,12 +46,12 @@ void add(List* &first)
 {
     if (first == NULL)
     {
-        cout << "Список пуст" << endl;
+        cout << "List is empty" << endl;
     }
-    cout << "Введите элемент, после которого будет произведено добавление элеменат в список:  ";
+    cout << "Enter the item after which the item will be added to the list:  ";
     char a[2];
     cin >> a[0];
-    cout << "Введите элемент для добавления:  ";
+    cout << "Enter elemenr for add:  ";
     cin >> a[1];
     List* p = first;
     while (p != NULL)
@@ -73,7 +73,7 @@ void add(List* &first)
 
 int main()
 {
-    setlocale(LC_ALL, "Russian");
+    cout << "New List:" << endl;
     List* list= make_char();
     print (list);
     add (list);

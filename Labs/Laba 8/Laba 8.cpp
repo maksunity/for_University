@@ -51,7 +51,7 @@ int main()
         car[7].year= 2002;
     
     int k;
-    cout << "Введите кол-во авто для поиска: ";
+    cout << "Enter kolvo car for search: ";
     cin >>k;
     for (int i = 1; i <= k; i++){
         cout << i << "." << endl;
@@ -64,7 +64,7 @@ int main()
      
      cout << endl;
 
-     cout << "Введите кол-во авто для удаления: ";
+     cout << "Enter kolvo car for del: ";
      int del;
      int vivod; vivod=0;
      cin >> del;
@@ -89,7 +89,7 @@ int main()
         cout << car[i].year << endl;
         cout << endl;
     }
-    cout << "Введите регестрационный номер для поиска: ";
+    cout << "Enter regestration num for search: ";
     int num;
     cin >> num;
     int pos=1;
@@ -104,12 +104,12 @@ int main()
             break;
         }
     }
-    cout << pos;
-    cout << "Введите данные авто для добавления: " << endl;
-    cout << "Введите марку авто: "; cin >> car[pos+1].name; cout << endl;
-    cout << "Серийный номер авто: "; cin >> car[pos+1].serialnum; cout << endl;
-    cout << "Регестрационный номер авто: "; cin >> car[pos+1].regnum; cout << endl;
-    cout << "Год выпуска авто: "; cin >> car[pos+1].year; cout << endl;
+    cout << pos << endl;
+    cout << "Enter car spec: " << endl;
+    cout << "Enter car name: "; cin >> car[pos+1].name; cout << endl;
+    cout << "Enter serial num: "; cin >> car[pos+1].serialnum; cout << endl;
+    cout << "Enter regestration num: "; cin >> car[pos+1].regnum; cout << endl;
+    cout << "Enter year: "; cin >> car[pos+1].year; cout << endl;
 
     for (int i = 1; i<=pos; i++)
     {
