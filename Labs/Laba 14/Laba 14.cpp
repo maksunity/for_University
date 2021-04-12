@@ -1,135 +1,165 @@
 #include <iostream>
 #include <string>
-#include <cstdlib>
-#include <locale.h>
-#include <fstream>
-#include <stdlib.h>
-#include <sstream>
 using namespace std;
- int n;
- string key;
- string line;
-
-struct ID{
-	string data;
-	string fnp;
-	long long number;
+struct info
+{
+	string fio;
+	string date;
+	string number;
 };
 
-	int size=100;
-	ID* arr = new ID[size];
-void create(){
-	string a;
-	ifstream str("struct.txt");
-    for(int i=0; i<size; i++){
-        if(str.is_open()){
-            if(getline(str, a)){
-                arr[i].data = a;
-            }
-            if(getline(str, a)){
-                arr[i].fnp = a;
-            }
-            if(getline(str, a)){
-                arr[i].number = a;
-            }
-        }    
-    }
-    str.close();
-}
-
-ID* users;
-
-void KMP_search(List* ID, string key, string line)
+bool knut_morris_pratt(string str, string obr)
 {
-	int lenline = line.size();
-	int lenkey = key.size();
-
-	int* array = new int[lenkey];
-	array[0] = 0;
-	int i = 1;
-	int j = 0;
-	for (int v = 0; v < lenkey; v++)
+	int i, j, k;
+	bool res = 0;
+	int d = str.size();
+	int e = obr.size();
+	if (d == 0)
+		cout << "Wrong line entered." << endl;
+	else if (e == 0)
+		cout << "Incorrect substring entered" << endl;
+	else
 	{
-		if (key[i] == key[j])
-		{
-			array[i] = j + 1; i++; j++;
-		}
-		else if (j == 0)
-		{
-			array[i] = 0;
-			i++;
-		}
+		j = 0;
+		k = -1;
+	}
+	int *pf = new int[1000];
+	pf[0] = -1;
+	while (j < e - 1)
+	{
+		while (k >= 0 && obr[j] != obr[k])
+			k = pf[k];
+		j++;
+		k++;
+		if (obr[j] == obr[k])
+			pf[j] = pf[k];
 		else
-		{
-			j = array[j - 1];
-		}
+			pf[j] = k;
 	}
-	cout << "Префикс функция:";
-	for (int i = 0; i < lenkey; i++)
+	i = 0;
+	j = 0;
+	while (j < e && i < d)
 	{
-		cout << " " << array[i];
+		while (j >= 0 && str[i] != obr[j])
+			j = pf[j];
+		i++;
+		j++;
 	}
-	cout << endl;
-	int index_line = 0;
-	int index_key = 0;
-	int o = 0;
-	while (index_line < lenline)
-	{
-		if (line[index_line] == key[index_key])
-		{
-			index_line++;
-			index_key++;
-			if (index_key == lenkey)
+	delete[] pf;
+	if (j == e)
+		res = 1;
+	return res;
+}
+bool boyer_moor(string str, string obr)
+{
+	int d = str.size();
+	int e = obr.size();
+	if (d == 0)
+		cout << "Wrong line entered." << endl;
+	else if (e == 0)
+		cout << "Incorrect substring entered" << endl;
+	else
+		int i, Pos;
+	int bmt[256];
+	for (int i = 0; i < 256; i++)
+		bmt[i] = e;
+	for (int i = e - 1; i >= 0; i--)
+		if (bmt[(short)(obr[i])] == e)
+			bmt[(short)(obr[i])] = e - i - 1;
+	int pos = e - 1;
+	while (pos < d)
+		if (obr[e - 1] != str[pos])
+			pos += bmt[(short)(str[pos])];
+		else
+			for (int i = e - 2; i >= 0; i--)
 			{
-				string tmp;
-				tmp = tmp + line[index_line];
-				int i = 1;
-
-				while (index_line < lenline && (line[index_line + 1] != ' ')) {
-					tmp = tmp + line[index_line + i];
-					index_line++;
+				if (obr[i] != str[pos - e + i + 1])
+				{
+					pos += bmt[(short)(str[pos - e + i + 1])] - 1;
+					break;
 				}
-				
-				cout << "Пользователь найден. Он находится под номером: " << stoi(tmp);
+				else if (i == 0)
+				{
+					return true;
+				}
 			}
-		}
-
-		if (line[index_line] != key[index_key])
+	return false;
+}
+void boyer(info *st, string key, int n)
+{
+	bool l;
+	bool p = 0;
+	for (int i = 0; i < n; i++)
+	{
+		l = boyer_moor(st[i].fio, key);
+		if (l != 0)
 		{
-			if (index_key == 0)
-			{
-				index_line++;
-			}
-			else
-			{
-				index_key = array[index_key - 1];
-			}
+			cout << "The element on position is: " << i << endl;
+			cout << "FNP: " << st[i].fio << endl;
+			cout << "Date: " << st[i].date << endl;
+			cout << "Phone Number: " << st[i].number << endl;
+			p = 1;
 		}
 	}
-}
-
-
-
-
-void print(){
-    cout << "Your struct: " << endl;
-    for(int i=0; i<size;i++){
-        cout << "Your " << i+1 << " person: " << endl;
-        cout << "|" << arr[i].data<<"|"<<endl;
-        cout << "|"<< arr[i].fnp<< "|"<<endl;
-        cout <<"|"<< arr[i].number << "|"<<endl;
-    }
-}
-void save(){
-	string a;
-	ofstream str;
-    ifstream gg("struct.txt");
-	str.open("save_struct.txt");
-	for(int i=0;i<size;i++){
-        if(getline(gg,a)){
-		str<<"|"<<arr[i].data<<"|"<<arr[i].fnp<<"|"<<arr[i].number<<"|"<<endl;
-        }
+	if (p == 0)
+	{
+		cout << "The element have not found." << endl;
 	}
-	str.close();
 }
-int main(){
+void knut(info *st, string key, int n)
+{
+	bool l;
+	bool p = 0;
+	for (int i = 0; i < n; i++)
+	{
+		l = knut_morris_pratt(st[i].fio, key);
+		if (l != 0)
+		{
+			cout << "The element on position is: " << i << endl;
+			cout << "FNP: " << st[i].fio << endl;
+			cout << "Date: " << st[i].date << endl;
+			cout << "Phone Number: " << st[i].number << endl;
+			p = 1;
+		}
+	}
+	if (p == 0)
+	{
+		cout << "The element have not found." << endl;
+	}
+}
+int main()
+{
+	int n;
+	string key;
+	cout << "Enter number of elements: ";
+	cin >> n;
+	cin.ignore();
+	cout << "Key for search: ";
+	getline(cin, key);
+	info *st = new info[n];
+	for (int i = 0; i < n; i++)
+	{
+		cout << "FNP: ";
+		getline(cin, st[i].fio);
+		cout << "Data: ";
+		getline(cin, st[i].date);
+		cout << "Phone Number: ";
+		getline(cin, st[i].number);
+	}
+	bool a;
+	cout << "1. - Boyer search." << endl;
+	cout << "2. - Knut search." << endl;
+	cin >> a;
+	switch (a)
+	{
+	case 1:
+		boyer(st, key, n);
+		break;
+	case 2:
+		knut(st, key, n);
+		break;
+	default:
+		cout << "Data entered incorrectly." << endl;
+	}
+	return 0;
+}
