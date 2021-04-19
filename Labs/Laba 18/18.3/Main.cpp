@@ -2,7 +2,7 @@
 #include <iostream>
 using namespace std;
 
-void main()
+int main()
 {
     Money a;                    //конструктор без параметров
     Money b;                    //конструктор без параметров
