@@ -3,29 +3,37 @@
 #include "fraction.h"
 
 using namespace std;
-//реализация метода для инициализации полей структуры 
-void fraction::Init(double F, double S)
+double x_first, x_second, y_first, y_second;
+
+void Init(double x1, double x2, double y1, double y2)
 {
-first=F; 
-second=S;
+    x_first = x1;
+    x_second = x2;
+    y_first = y1;
+    y_second = y2;
 }
-//реализация метода для чтения значений полей структуры 
-void fraction::Read()
+
+
+void Read()
 {
-cout<<"\nfirst?"; 
-cin>>first; 
-cout<<"\nsecond?";
-cin>>second;
+    cout << endl;
+    cout << "Enter first point: " << endl;
+    cin >> x_first;
+    cout << endl;
+    cin >> y_first;
+    cout << endl << "Enter second point: " << endl;
+    cin >> x_second;
+    cout << endl;
+    cin >> y_second;
 }
-//реализация метода для вывода значений полей структуры 
-void fraction::Show()
+
+void Show()
 {
-cout<<"\nfirst="<<first;
-cout<<"\nsecond="<<second;
-cout<<"\n";
+    cout << "First point: " << x_first << " " << y_first << endl;
+    cout << "First point: " << x_second << " " << y_second << endl;
 }
-//метод для возведения в степень 
-double fraction::Power()
+
+float Distance()
 {
-return pow (first, second);
+    return sqrt ( pow((x_second-x_first),2) + pow((y_second-y_first),2) );
 }

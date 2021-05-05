@@ -3,7 +3,6 @@
 using namespace std;
 class Staff
 {
-    //атрибуты
     string FIO;
     string status;
     double pay;
