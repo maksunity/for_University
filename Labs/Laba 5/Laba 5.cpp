@@ -1,4 +1,4 @@
-#include <iostream> //done
+#include <iostream>
 using namespace std;
 int n,k,nm,kol;
 double sr,sum,m;
