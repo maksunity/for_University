@@ -50,6 +50,8 @@ bool knut_morris_pratt(string str, string obr)
 		res = 1;
 	return res;
 }
+
+
 bool boyer_moor(string str, string obr)
 {
 	int d = str.size();
@@ -85,6 +87,7 @@ bool boyer_moor(string str, string obr)
 			}
 	return false;
 }
+
 void boyer(info *st, string key, int n)
 {
 	bool l;
@@ -106,6 +109,7 @@ void boyer(info *st, string key, int n)
 		cout << "The element have not found." << endl;
 	}
 }
+
 void knut(info *st, string key, int n)
 {
 	bool l;

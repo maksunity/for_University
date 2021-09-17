@@ -1,18 +1,18 @@
-﻿
-#include <iostream>
+﻿#include <iostream>
 #include <vector>
 #include <queue>
-#include <cmath>
-#include <stdio.h>
 
 using namespace std;
+
 int main()
 {
-	int n = 9;
+	int n = 9; //можно и через cin сделать не так важно
+	//Это кол-во дорог между пунктами
 
-	vector <vector<int>> v(n + 1, vector<int>(n + 1, 0));
+	vector<vector<int>> v(n + 1, vector<int>(n + 1, 0));
 
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++)
+	{
 		int a, b, d;
 		cout << "Enter first apex: " << endl;
 		cin >> a;
@@ -28,36 +28,38 @@ int main()
 	bool visit[1000];
 	int dist[1000];
 
-	for (int i = 0; i < n; i++) {
+	for (int i = 0; i < n; i++)
+	{
 
 		visit[i] = false;
-		dist[i] = INT_MAX;
-
+		dist[i] = 1000000;
 	}
 	dist[1] = 0;
 	visit[1] = true;
 
-	queue<int>q;
+	queue<int> q;
 	q.push(1);
 
-	while (!q.empty()) {
-		int vetrex = q.front();
+	while (!q.empty())
+	{
+		int ver = q.front();
 		q.pop();
 
-		for (int j = 1; j < v[vetrex].size(); j++) {
-			if (!visit[j] && v[vetrex][j] && v[vetrex][j] + dist[vetrex] < dist[j]) {
+		for (int j = 1; j < v[ver].size(); j++)
+		{
+			if (!visit[j] && v[ver][j] && v[ver][j] + dist[ver] < dist[j])
+			{
 
-				dist[j] = v[vetrex][j] + dist[vetrex];
+				dist[j] = v[ver][j] + dist[ver];
 				q.push(j);
 			}
 
 			visit[j] = 0;
 		}
 	}
-
-	for (int j = 1; j < 7; j++) {
+	for (int j = 1; j < 7; j++)
+	{
 		cout << dist[j] << " ";
 	}
-
 	return 0;
 }

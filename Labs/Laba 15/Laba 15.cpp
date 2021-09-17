@@ -29,7 +29,7 @@ void Hoar(Bus* a, int left, int right)
             i++;
             j--;
         }
-        if (i > right)
+        if (i < right)
         {
             Hoar (a, i, right);
         }

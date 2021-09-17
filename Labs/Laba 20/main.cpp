@@ -17,5 +17,4 @@ int main()
     }
     t.print();
     t.count();
-    cout << c/n;
 }

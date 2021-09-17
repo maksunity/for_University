@@ -9,21 +9,22 @@ struct Bus{
 void Shell(Bus *a, int n)
 {
     int k = n / 2;
+    int j;
     while (k > 0)
     {
-        for (int i = 1; i < n - k + 1; i++)
+        for (int i = 0; i < n - k  ; i++)
         {
-            int j = i;
+            j = i;
             while (j >= 0 )
             {
                 if (a[j].d > a[j + k].d)
                 {
-                    int buf = a[j].d;
+                    int buf1 = a[j].d;
                     a[j].d = a[j + k].d;
-                    a[j + k].d = buf;
-                    int f = a[j].m;
+                    a[j + k].d = buf1;
+                    int buf2 = a[j].m;
                     a[j].m = a[j + k].m;
-                    a[j + k].m = f;
+                    a[j + k].m = buf2;
                 }
                 else
                     j = -1;
@@ -38,7 +39,7 @@ int main()
     cout << "Enter num of bus: " << endl;
     cin >> n;
     Bus *p = new Bus[n];
-    for (int i = 1; i <= n; i++)
+    for (int i = 0; i < n; i++)
     {
         cout << "Enter bus number: " << endl;
         cin >> p[i].m;
@@ -48,7 +49,7 @@ int main()
     }
     Shell(p, n);
     cout << "Sorted array: " << endl;
-    for (int i = 1; i <= n; i++)
+    for (int i = 0; i < n; i++)
     {
         cout << "Bus " << i << "Number"
              << " " << p[i].m << " ";
