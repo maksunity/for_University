@@ -9,18 +9,20 @@
 
 using namespace std;
 
-int main()
+vector<int> main_vector = {-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+vector<int> vec_1;
+vector<int> vec_2; //инициализируем вектора, для будущих множеств
+vector<int> vec_3;
+vector<int> vec_res;
+vector<int> vec_help;
+vector<int>::iterator out1;
+vector<int>::iterator out2;
+vector<int>::iterator out3;
+int menu_3, operation_menu;
+
+vector<int> enter(vector<int> vec)
 {
-	vector<int> main_vector = {-9, -8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-	vector<int> vec_1;
-	vector<int> vec_2; //инициализируем вектора, для будущих множеств
-	vector<int> vec_3;
-	vector<int> vec_res;
-	vector<int> vec_help;
-	vector<int>::iterator out1;
-	vector<int>::iterator out2;
-	vector<int>::iterator out3;
-	int main_menu, menu_3, operation_menu, exit;
+	int exit, main_menu, r;
 
 	mt19937 range{static_cast<std::mt19937::result_type>(time(nullptr))};
 	uniform_int_distribution<> num{-9, 9}; //функция для заполнения ветора из диапазона
@@ -38,7 +40,7 @@ int main()
 
 		switch (main_menu)
 		{
-		case (1):
+		case '1':
 			cout << "Enter the number of elements for the set: " << endl;
 			int count;
 			count = 0;
@@ -55,21 +57,10 @@ int main()
 			{
 				cout << *out1 << " | ";
 			}
-
-			/*for (int i=0; i<count-1;i++)
-            {
-                for (int j=i+1; j<count){
-                    if (vec_1[i]==vec_1[j])
-                    {
-
-                    }
-                }
-            }*/
-
 			break;
 
-		case (2):
-			cout << "Enter the numbers for the set. To end the input, enter '22'." << endl;
+		case '2':
+			/**cout << "Enter the numbers for the set. To end the input, enter '22'." << endl;
 			int check;
 			for (int i = 0; i < 19; i++)
 			{
@@ -95,10 +86,39 @@ int main()
 			{
 				cout << *out2 << " | ";
 			}
-
+			**/
+			cout << "Введите размер множества, меньший 20 " << endl;
+			cin >> r;
+			while (r > 19)
+			{
+				cout << "Размер множества должен быть меньше 20, введите новый " << endl;
+				cin >> r;
+			}
+			cout << "Введите числа от -9 до 9 " << endl;
+			for (int i = 0; i < r; i++)
+			{
+				int s;
+				cin >> s;
+				while (check(vec, s) || s < -9 || s > 9)
+				{
+					if (check(vec_1, s))
+					{
+						cout << "Такое число уже есть, введите другое " << endl;
+						cin >> s;
+					}
+					if (s < -9 || s > 9)
+					{
+						cout << "Число не удовлетворяет условие, введите в диапазоне от -9 до 9 " << endl;
+						cin >> s;
+					}
+				}
+				vec_1.push_back(s);
+			}
+			vec_1 = Sort(vec_1);
+			return vec_1;
 			break;
 
-		case (3):
+		case '3':
 			cout << "Select the condition to fill in: " << endl;
 			cout << "Enter 1 to enter by parity." << endl;
 			cout << "Enter 2 to enter by sign." << endl;
@@ -109,7 +129,7 @@ int main()
 
 			switch (menu_3)
 			{
-			case (1):
+			case '1':
 				bool flag;
 				cout << "Enter 0 to add only odd elements to the set" << endl;
 				cout << "Enter 1 to add only even elements to the set" << endl;
@@ -141,7 +161,7 @@ int main()
 				}
 				break;
 
-			case (2):
+			case '2':
 				bool flag2;
 				int k;
 				k = 0;
@@ -177,11 +197,26 @@ int main()
 				}
 				break;
 
-			case (3):
+			case '3':
+				bool flag3;
+				int d;
+				d = 0;
+				cout << "Enter divider: " << endl;
+				cin >> d;
+				while (d < -9 || d > 9 || d == 0)
+				{
+					cout << "Wrong input, try again!" << endl;
+					cin >> d;
+				}
 
+				for (int i = 0; i < 19; i++)
+				{
+					if (vec_3[i] % d == 0)
+						vec_res.push_back(vec_3[i]);
+				}
 				break;
 
-			case (0):
+			case '0':
 				break;
 			}
 
@@ -190,6 +225,393 @@ int main()
 		cout << "Programm close. See you later!";
 		break;
 	}
+}
 
-	return 0;
+bool check(vector<int> k, int num)
+{
+	bool f = 0;
+	for (int i = 0; i < k.size(); i++)
+	{
+		if (k[i] == num)
+		{
+			f = 1;
+		}
+	}
+	return f;
+}
+
+vector<int> Sort(vector<int> k)
+{
+	int n = k.size();
+	int h = n / 2;
+	while (h > 0)
+	{
+		for (int i = 0; i < n - h; i++)
+		{
+			int j = i;
+			while (j >= 0)
+			{
+				if (k[j] > k[j + h])
+				{
+					int d = k[j];
+					k[j] = k[j + h];
+					k[j + h] = d;
+					j -= h;
+				}
+				else
+					j = -1;
+			}
+		}
+		h /= 2;
+	}
+	return k;
+}
+
+vector<int> inter(vector<int> a, vector<int> b)
+{
+	vector<int> c;
+	for (int i = 0; i < a.size(); i++)
+	{
+		if (check(b, a[i]))
+		{
+			c.push_back(a[i]);
+		}
+	}
+	return c;
+}
+vector<int> unific(vector<int> a, vector<int> b)
+{
+	vector<int> c;
+	for (int i = 0; i < a.size(); i++)
+	{
+		c.push_back(a[i]);
+	}
+	for (int j = 0; j < b.size(); j++)
+	{
+		if (!check(c, b[j]))
+		{
+			c.push_back(b[j]);
+		}
+	}
+	c = Sort(c);
+	return c;
+}
+vector<int> without(vector<int> a, vector<int> b)
+{
+	vector<int> c;
+	for (int i = 0; i < a.size(); i++)
+	{
+		if (!check(b, a[i]))
+		{
+			c.push_back(a[i]);
+		}
+	}
+	return c;
+}
+vector<int> symmetry(vector<int> a, vector<int> b)
+{
+	vector<int> c;
+	for (int i = 0; i < a.size(); i++)
+	{
+		if (!check(b, a[i]))
+		{
+			c.push_back(a[i]);
+		}
+	}
+	for (int i = 0; i < b.size(); i++)
+	{
+		if (!check(a, b[i]))
+		{
+			c.push_back(b[i]);
+		}
+	}
+	return c;
+}
+vector<int> no(vector<int> a)
+{
+	vector<int> c;
+	for (int i = 0; i < 19; i++)
+	{
+		if (!check(a, main_vector[i]))
+		{
+			c.push_back(main_vector[i]);
+		}
+	}
+	return c;
+}
+void print(vector<int> k)
+{
+	for (int i = 0; i < k.size(); i++)
+	{
+		cout << k[i] << " ";
+	}
+}
+
+vector<vector<int>> oper(vector<int> a, vector<int> b, vector<int> c, vector<int> result)
+{
+	vector<vector<int>> t;
+	char z;
+	cout << "Enter first multitude: " << endl
+		 << "1 - multitude а" << endl
+		 << "2 - multitude b" << endl
+		 << "3 - multitude с " << endl
+		 << "4 - multitude of results past calculations" << endl;
+	cin >> z;
+	char w;
+	switch (z)
+	{
+	case '1':
+		cout << "Enter second multitude:" << endl
+			 << "1 - multitude b" << endl
+			 << "2 - multitude c" << endl
+			 << "3 - multitude of results past calculations" << endl;
+		cin >> w;
+		if (w == '1')
+		{
+			t.push_back(a);
+			t.push_back(b);
+		}
+		else if (w == '2')
+		{
+			t.push_back(a);
+			t.push_back(c);
+		}
+		else if (w == '3')
+		{
+			if (!result.empty())
+			{
+				t.push_back(a);
+				t.push_back(result);
+			}
+			else
+				cout << "It's empty" << endl;
+		}
+		return t;
+		break;
+	case '2':
+		cout << "Enter second multitude:" << endl
+			 << "1 - multitude a" << endl
+			 << "2 - multitude c" << endl
+			 << "3 - multitude of results past calculations" << endl;
+		cin >> w;
+		if (w == '1')
+		{
+			t.push_back(b);
+			t.push_back(a);
+		}
+		else if (w == '2')
+		{
+			t.push_back(b);
+			t.push_back(c);
+		}
+		else if (w == '3')
+		{
+			if (!result.empty())
+			{
+				t.push_back(b);
+				t.push_back(result);
+			}
+			else
+				cout << "It's empty" << endl;
+		}
+		return t;
+		break;
+	case '3':
+		cin >> w;
+		if (w == '1')
+		{
+			t.push_back(c);
+			t.push_back(a);
+		}
+		else if (w == '2')
+		{
+			t.push_back(c);
+			t.push_back(b);
+		}
+		else if (w == '3')
+		{
+			if (!result.empty())
+			{
+				t.push_back(c);
+				t.push_back(result);
+			}
+			else
+				cout << "It's empty" << endl;
+		}
+		return t;
+		break;
+	case '4':
+		if (!result.empty())
+		{
+			cout << "Enter second multitude:" << endl
+				 << "1 - multitude a" << endl
+				 << "2 - multitude b" << endl
+				 << "3 - multitude c" << endl;
+			cin >> w;
+			if (w == '1')
+			{
+				t.push_back(result);
+				t.push_back(a);
+			}
+			else if (w == '2')
+			{
+				t.push_back(result);
+				t.push_back(b);
+			}
+			else if (w == '3')
+			{
+				if (!result.empty())
+				{
+					t.push_back(result);
+					t.push_back(c);
+				}
+				else
+					cout << "It's empty" << endl;
+			}
+			return t;
+		}
+		else
+		{
+			cout << "It's empty " << endl;
+		}
+		break;
+	}
+}
+
+int main()
+{
+	bool flag = 1;
+	vector<int> a;
+	vector<int> b;
+	vector<int> c;
+	vector<int> result;
+	vector<vector<int>> o;
+	while (flag)
+	{
+		char com;
+		cout << "Select:" << endl
+			 << "1 - enter multitude" << endl
+			 << "2 - print all multitude" << endl
+			 << "3 - delete all multitude" << endl
+			 << "4 - exit" << endl
+			 << "5 - operations" << endl;
+		cin >> com;
+		switch (com)
+		{
+		case '1':
+			a = enter(a);
+			b = enter(b);
+			c = enter(c);
+			break;
+		case '2':
+			if (!a.empty() && !b.empty() && !c.empty() && !c.empty())
+			{
+				cout << "a: ";
+				print(a);
+				cout << endl
+					 << "b: ";
+				print(b);
+				cout << endl
+					 << "c: ";
+				print(c);
+				cout << endl
+					 << "result: ";
+				print(result);
+				cout << endl;
+			}
+			break;
+		case '3':
+			a.clear();
+			b.clear();
+			c.clear();
+			result.clear();
+			break;
+		case '4':
+			flag = 0;
+			break;
+		case '5':
+			char q;
+			cout << "Select operation " << endl
+				 << "1 - Crossing" << endl			   // пересечение
+				 << "2- Union" << endl				   // объединение
+				 << "3 - difference" << endl		   //разность
+				 << "4 - symmetric difference" << endl // симметричная разность
+				 << "5 - addition" << endl;			   // дополнение
+			cin >> q;
+			switch (q)
+			{
+			case '1':
+				o = oper(a, b, c, result);
+				result = inter(o[0], o[1]);
+				print(o[0]);
+				cout << endl;
+				print(o[1]);
+				cout << endl;
+				print(result);
+				cout << endl;
+				break;
+			case '2':
+				o = oper(a, b, c, result);
+				result = unific(o[0], o[1]);
+				print(o[0]);
+				cout << endl;
+				print(o[1]);
+				cout << endl;
+				print(result);
+				cout << endl;
+				break;
+			case '3':
+				o = oper(a, b, c, result);
+				result = without(o[0], o[1]);
+				print(o[0]);
+				cout << endl;
+				print(o[1]);
+				cout << endl;
+				print(result);
+				cout << endl;
+				break;
+			case '4':
+				o = oper(a, b, c, result);
+				result = symmetry(o[0], o[1]);
+				print(o[0]);
+				cout << endl;
+				print(o[1]);
+				cout << endl;
+				print(result);
+				cout << endl;
+				break;
+			case '5':
+				char w;
+				cout << "Enter multitude for addition " << endl
+					 << "1 - multitude а " << endl
+					 << "2 - multitude b" << endl
+					 << "3- multitude c" << endl
+					 << "4 - result multitude " << endl;
+				cin >> w;
+				if (w == '1')
+				{
+					result = no(a);
+				}
+				else if (w == '2')
+				{
+					result = no(b);
+				}
+				else if (w == '3')
+				{
+					result = no(c);
+				}
+				else if (w == '4')
+				{
+					if (!result.empty())
+					{
+						result = no(result);
+					}
+					else
+						cout << "It's empty" << endl;
+				}
+				break;
+			}
+			break;
+		}
+	}
 }
